@@ -5,14 +5,56 @@ html(lang="en")
 
 
         // CUSTOM CSS
-        link(rel='stylesheet' href='styles/styles.css')
+        link(rel='stylesheet' href='styles.css')
+        style @import url('https://fonts.googleapis.com/css?family=Anton|Lato')
+        script(defer='', src='https://use.fontawesome.com/releases/v5.0.10/js/all.js', integrity='sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+', crossorigin='anonymous')
 
 
     body
-      div#slow-loris-game
+      div.head
+      div.items
+        div.title
+          h1 Slow Loris
+        div.intro
+          h2 Play Now!
+          em Slow loris fell out of her tree -- help guide her back home.
+
+
+          p Use the arrow keys to control the slow loris.
+          p Use the F5 key to retry game.
+
+        div#slow-loris-game
+
+        section.description
+          img(src="/imgs/phaserlogo.png")
+          h2 Built with Phaser3
+
+          p Slow Loris is a game written in Javascript using the just released Phaser3 game engine.
+
+
+          blockquote Phaser 3 is the next generation of the Phaser Game Framework. Every last element has been rebuilt from scratch using a fully modular structure, combined with a data-orientated approach. It includes a brand-new custom WebGL renderer designed specifically for the needs of modern 2D games.
+
+          h2 Available on Desktop
+
+          p The Electron framework allows for the creation of cross platform desktop applications using web technologies such has HTML, CSS, Javascript, and NodeJS. This framework is running more of the apps we use and is even powerful enough now for games.
+
+          p This game was developed concurrently to work as a standalone desktop application to run on Windows, Mac, and Linux.
+
+          blockquote
+            p Compatible with Mac, Linux, and Windows.
+            p
+              | Download from
+              a(href='https://github.com/JSitter/electron-loris') GitHub
+
+      footer
+        section.foot
+          p Built in 2018 by Justin Sitter
+          | Available on GitHub at
+          a(href='https://github.com/JSitter/electron-loris') www.github.com/JSitter/electron-loris
+
+
+
       script(src='/js/phaser.js')
       script(src='/js/easystar.min.js')
       script(src='/js/animated-tiles.js')
       script(src='/js/game.js')
-
-      h2 text
