@@ -514,13 +514,13 @@ sceneOne.create = function(){
     gameOverText.visible = false
     gameWonText.visible = false
 
-    console.log("Gamve 0over textg")
+    // console.log("Gamve 0ver textg")
     console.log(gameOverText)
 
-    // leftKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J)
-    // rightKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L)
-    // downKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K)
-    // upKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I)
+    leftKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
+    rightKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
+    downKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
+    upKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
     // angleKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
     // healthKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H)
 
@@ -595,7 +595,7 @@ sceneOne.update = function(time, delta){
     }
     let player_move_amt = 60
 
-    movePlayer(cursors, player_move_amt)
+    movePlayer(leftKey, rightKey, upKey, downKey, player_move_amt)
     this.DM.tick(time, delta)
 
 
@@ -778,28 +778,28 @@ function gameOver(){
 
 
 
-function movePlayer(cursors, distance){
+function movePlayer(leftKey, rightKey, upKey , downKey, distance){
     x = 0
     y = 0
 
 
-    if (cursors.left.isDown){
+    if (leftKey.isDown){
         x -= distance
         this.player.anims.play("player-left", true)
         this.lastPress = "left"
 
-    }else if (cursors.right.isDown){
+    }else if (rightKey.isDown){
         x += distance
         this.player.anims.play("player-right", true)
         this.lastPress = "right"
     }
-    else if (cursors.up.isDown){
+    else if (upKey.isDown){
         y -= distance
         this.player.anims.play("player-up", true)
         this.lastPress = "up"
 
     }
-    else if(cursors.down.isDown){
+    else if(downKey.isDown){
         y += distance
         player.anims.play("player-down", true)
         this.lastPress = "down"
