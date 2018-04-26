@@ -1,3 +1,8 @@
+//compatibility with frame redirects
+window.onload = function() {
+  var input = document.getElementById("head").focus();
+}
+
 //Trying to break these into separate file isn't working
 class Player{
     constructor(sprite){
