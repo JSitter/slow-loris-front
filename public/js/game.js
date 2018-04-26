@@ -1,6 +1,8 @@
 //compatibility with frame redirects
 window.onload = function() {
-  var input = document.getElementById("head").focus();
+
+  var input = document.getElementById("slow-loris-game").focus();
+  console.log(input)
 }
 
 //Trying to break these into separate file isn't working
