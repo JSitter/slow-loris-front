@@ -1,10 +1,3 @@
-//compatibility with frame redirects
-window.onload = function() {
-
-  var input = document.getElementById("slow-loris-game").focus();
-  console.log(input)
-}
-
 //Trying to break these into separate file isn't working
 class Player{
     constructor(sprite){
@@ -433,6 +426,19 @@ class dungeonMaster{
 
 // create a new scene named "One"
 let sceneOne = new this.Phaser.Scene('One');
+let sceneTwo = new this.Phaser.Scene('Two')
+
+sceneTwo.create = function() {
+    // this.add.text(0, 0, 'Test');
+    console.log('Hit')
+    let startGame = this.add.text(100, 100, 'Start Game').setInteractive();
+    console.log(startGame);
+    startGame.on('pointerdown', function() {
+        // Transition to Next Screen inside of this callback.
+        startGame.visible = false;
+        game.scene.start('One');
+    })
+}
 
 var map, waveTiles, groundTiles, waveLayer, groundLayer, countdown, changed;
 var camera;
@@ -521,13 +527,13 @@ sceneOne.create = function(){
     gameOverText.visible = false
     gameWonText.visible = false
 
-    // console.log("Gamve 0ver textg")
+    console.log("Gamve 0over textg")
     console.log(gameOverText)
 
-    leftKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
-    rightKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
-    downKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
-    upKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
+    // leftKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J)
+    // rightKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L)
+    // downKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K)
+    // upKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I)
     // angleKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
     // healthKey = game.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H)
 
@@ -602,9 +608,25 @@ sceneOne.update = function(time, delta){
     }
     let player_move_amt = 60
 
-    movePlayer(leftKey, rightKey, upKey, downKey, player_move_amt)
+    movePlayer(cursors, player_move_amt)
     this.DM.tick(time, delta)
 
+    //This is for animated tiles
+    countdown-=delta;
+    // countdown is done, but the change hasn't been done
+    if(countdown <0 && !changed){
+        console.log("log T")
+        // Native API-method to fill area with tiles
+        // layer3.fill(1525, 1, 1, 3, 3);
+        // Need to tell the plugin about the new tiles.
+        // ATM it will go through all tilemaps and layers,
+        // but I'll add support for limiting the task to
+        // maps, layers and areas within that.
+        console.log(this.sys)
+        this.sys.animatedTiles.updateAnimatedTiles();
+        // Ok. don't hammer tiles on each update-loop. the change is done.
+        changed = true;
+}
 
 }
 
@@ -785,28 +807,28 @@ function gameOver(){
 
 
 
-function movePlayer(leftKey, rightKey, upKey , downKey, distance){
+function movePlayer(cursors, distance){
     x = 0
     y = 0
 
 
-    if (leftKey.isDown){
+    if (cursors.left.isDown){
         x -= distance
         this.player.anims.play("player-left", true)
         this.lastPress = "left"
 
-    }else if (rightKey.isDown){
+    }else if (cursors.right.isDown){
         x += distance
         this.player.anims.play("player-right", true)
         this.lastPress = "right"
     }
-    else if (upKey.isDown){
+    else if (cursors.up.isDown){
         y -= distance
         this.player.anims.play("player-up", true)
         this.lastPress = "up"
 
     }
-    else if(downKey.isDown){
+    else if(cursors.down.isDown){
         y += distance
         player.anims.play("player-down", true)
         this.lastPress = "down"
@@ -888,6 +910,6 @@ var config = {
             debug: false
         }
     },
-    scene: sceneOne
+    scene: [sceneTwo, sceneOne]
 };
 var game = new Phaser.Game(config);
