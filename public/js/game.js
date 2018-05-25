@@ -913,3 +913,5 @@ var config = {
     scene: [sceneTwo, sceneOne]
 };
 var game = new Phaser.Game(config);
+
+document.getElementByClassName("head").focus()
